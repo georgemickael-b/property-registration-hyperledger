@@ -7,3 +7,4 @@ network/crypto-config
 /application/node_modules
 /application/identity
 network/bin
+node_modules

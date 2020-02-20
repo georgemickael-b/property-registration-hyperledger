@@ -1,49 +1,56 @@
 {
-  "name": "certnet",
-  "version": "0.0.1",
-  "description": "Certification Network",
-  "main": "index.js",
-  "engines": {
-    "node": ">=8",
-    "npm": ">=5"
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "nyc mocha test --recursive",
-    "start-dev": "fabric-chaincode-node start --peer.address peer0.iit.certification-network.com:7053 --chaincode-id-name certnet:1.1",
-    "start": "fabric-chaincode-node start",
-    "mocha": "mocha test --recursive"
-  },
-  "engineStrict": true,
-  "author": "Aakash Bansal",
-  "dependencies": {
-    "fabric-contract-api": "~1.4.2",
-    "fabric-shim": "~1.4.2"
-  },
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "eslint": "^4.19.1",
-    "mocha": "^5.2.0",
-    "nyc": "^12.0.2",
-    "sinon": "^6.0.0",
-    "sinon-chai": "^3.2.0"
-  },
-  "nyc": {
-    "exclude": [
-      "coverage/**",
-      "test/**"
-    ],
-    "reporter": [
-      "text-summary",
-      "html"
-    ],
-    "all": true,
-    "check-coverage": true,
-    "statements": 100,
-    "branches": 100,
-    "functions": 100,
-    "lines": 100
-  }
+	"name": "regnet",
+	"version": "0.0.1",
+	"description": "Property Registration Network",
+	"main": "index.js",
+	"engines": {
+		"node": ">=8",
+		"npm": ">=5"
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "nyc mocha test --recursive",
+		"start-dev": "fabric-chaincode-node start --peer.address  peer0.registrar.property-registration-network.com:7053 --chaincode-id-name regnet:1.1",
+		"start": "fabric-chaincode-node start",
+		"mocha": "mocha test --recursive"
+	},
+	"engineStrict": true,
+	"author": "George Mickael Antony",
+	"dependencies": {
+		"fabric-contract-api": "~1.4.2",
+		"fabric-shim": "~1.4.2",
+		"loglevel": "^1.6.7",
+		"package.json": "^2.0.1"
+	},
+	"devDependencies": {
+		"chai": "^4.1.2",
+		"chai-as-promised": "^7.1.1",
+		"eslint": "^6.8.0",
+		"eslint-config-standard": "^14.1.0",
+		"eslint-plugin-import": "^2.20.1",
+		"eslint-plugin-node": "^11.0.0",
+		"eslint-plugin-promise": "^4.2.1",
+		"eslint-plugin-standard": "^4.0.1",
+		"mocha": "^5.2.0",
+		"nyc": "^12.0.2",
+		"sinon": "^6.0.0",
+		"sinon-chai": "^3.2.0"
+	},
+	"nyc": {
+		"exclude": [
+			"coverage/**",
+			"test/**"
+		],
+		"reporter": [
+			"text-summary",
+			"html"
+		],
+		"all": true,
+		"check-coverage": true,
+		"statements": 100,
+		"branches": 100,
+		"functions": 100,
+		"lines": 100
+	}
 }

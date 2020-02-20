@@ -1,4 +1,5 @@
 'use strict';
 
-const certnetcontract = require('./contract.js');
-module.exports.contracts = [certnetcontract];
+const userContract = require('./contracts/UserContract');
+const registrarContract = require('./contracts/RegistrarContract');
+module.exports.contracts = [userContract, registrarContract];
