@@ -158,3 +158,29 @@ services:
             - ./crypto-config:/opt/gopath/src/crypto
         networks:
             - registration
+
+    chaincode2:
+        container_name: chaincode2
+        image: hyperledger/fabric-ccenv:latest
+        tty: true
+        environment:
+            - GOPATH=/opt/gopath
+            - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+            - FABRIC_LOGGING_SPEC=INFO
+            - CORE_PEER_ID=chaincode2
+            - CORE_PEER_ADDRESS=peer0.users.property-registration-network.com:9051
+            - CORE_PEER_LOCALMSPID=usersMSP
+            - CORE_PEER_TLS_ENABLED=false
+            - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/msp
+            - CORE_TLS_CLIENT_KEY_PATH=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/tls/client.key
+            - CORE_TLS_CLIENT_CERT_PATH=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/tls/client.crt
+            - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/tls/ca.crt
+        working_dir: /opt/gopath/src/chaincode
+        command: /bin/bash -c 'sleep 6000000'
+        volumes:
+            - /var/run/:/host/var/run/
+            - ./../chaincode:/opt/gopath/src/chaincode
+            - ./../chaincode-advanced:/opt/gopath/src/chaincode-advanced
+            - ./crypto-config:/opt/gopath/src/crypto
+        networks:
+            - registration

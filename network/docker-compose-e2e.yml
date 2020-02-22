@@ -19,7 +19,7 @@ services:
             - FABRIC_CA_SERVER_CA_NAME=ca.registrar.property-registration-network.com
             - FABRIC_CA_SERVER_TLS_ENABLED=false
             # - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.registrar.property-registration-network.com-cert.pem
-            # - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/b5c9a81f7a357ab8465f156210c57283b190f71b3c721810e51d605f0648f9e9_sk
+            # - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/22cf8f5b69fd5feaf9af285a00c99caa072047b0eecb7f723e6df6235471b77b_sk
         ports:
             - "7054:7054"
         command: sh -c 'fabric-ca-server start -b admin:adminpw -d' # --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.registrar.property-registration-network.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/754fccf4ad3f6a483161cf597b79fbdbdadaf1ee2f024e79da8c8e9b8bfb6dcb_sk
@@ -36,7 +36,7 @@ services:
             - FABRIC_CA_SERVER_CA_NAME=ca.users.property-registration-network.com
             - FABRIC_CA_SERVER_TLS_ENABLED=false
             # - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.users.property-registration-network.com-cert.pem
-            # - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/6c8a5b7b23bd9c1c567667f4034404bb49382578174da62100132f2afdf7f91f_sk
+            # - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/b936d080ab0af96152bcabbc74a83c3512a20936e73fbd4f0f1648018b71e36c_sk
         ports:
             - "8054:7054"
         command: sh -c 'fabric-ca-server start -b admin:adminpw -d' # --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.users.property-registration-network.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/69f46c1ef51a71ee0aaadc9cef23aef7b44df2b1e84dad62484980170c01aa22_sk
@@ -144,6 +144,32 @@ services:
             - CORE_PEER_ID=chaincode
             - CORE_PEER_ADDRESS=peer0.registrar.property-registration-network.com:7051
             - CORE_PEER_LOCALMSPID=registrarMSP
+            - CORE_PEER_TLS_ENABLED=false
+            - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/msp
+            - CORE_TLS_CLIENT_KEY_PATH=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/tls/client.key
+            - CORE_TLS_CLIENT_CERT_PATH=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/tls/client.crt
+            - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/tls/ca.crt
+        working_dir: /opt/gopath/src/chaincode
+        command: /bin/bash -c 'sleep 6000000'
+        volumes:
+            - /var/run/:/host/var/run/
+            - ./../chaincode:/opt/gopath/src/chaincode
+            - ./../chaincode-advanced:/opt/gopath/src/chaincode-advanced
+            - ./crypto-config:/opt/gopath/src/crypto
+        networks:
+            - registration
+
+    chaincode2:
+        container_name: chaincode2
+        image: hyperledger/fabric-ccenv:latest
+        tty: true
+        environment:
+            - GOPATH=/opt/gopath
+            - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+            - FABRIC_LOGGING_SPEC=INFO
+            - CORE_PEER_ID=chaincode2
+            - CORE_PEER_ADDRESS=peer0.users.property-registration-network.com:9051
+            - CORE_PEER_LOCALMSPID=usersMSP
             - CORE_PEER_TLS_ENABLED=false
             - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/msp
             - CORE_TLS_CLIENT_KEY_PATH=/opt/gopath/src/crypto/peerOrganizations/registrar.property-registration-network.com/users/Admin@registrar.property-registration-network.com/tls/client.key
